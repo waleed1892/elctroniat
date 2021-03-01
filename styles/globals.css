@@ -1,0 +1,30 @@
+/* ./styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-white;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.text-primary {
+    color: #3fa547;
+}
+
+.filterBox:not(:first-child) {
+    @apply md:mt-6;
+}
+
+.filterBox h3 {
+    position: relative;
+}
+
+.filterBox h3:after {
+    content: '';
+    position: absolute;
+    border: 1px solid #3fa547;
+    left: 0;
+    bottom: 0;
+    width: 80px;
+}
