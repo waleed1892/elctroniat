@@ -3,6 +3,11 @@ import HeroBanner from "../components/HeroBanner";
 import Product from "./../public/static/images/product.jpeg";
 import Footer from "../components/Footer";
 import StickyNavbar from "../components/StickyNavbar";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faCommentDots, faHeart} from "@fortawesome/free-regular-svg-icons";
+import {faSearchPlus} from "@fortawesome/free-solid-svg-icons";
+import Brand from "./../public/static/images/brand.png";
+
 
 const Home = () => {
     return (
@@ -18,10 +23,28 @@ const Home = () => {
                     <h2 className='uppercase md:text-center md:text-2xl md:font-bold'>check latest bundle</h2>
                 </div>
                 <div className='md:mt-10'>
-                    <div className='grid md:grid-cols-4'>
-                        <div className=''>t</div>
+                    <div className='grid md:grid-cols-4 md:gap-x-8'>
+                        <div>
+                            <div
+                                className='border md:px-4 md:py-4 relative'>
+                                <div
+                                    className='md:bg-gradient-to-b md:from-primary-light md:to-primary absolute inset-0'
+                                    style={{
+                                        clipPath: "polygon(0 0, 100% 0%, 100% 50%, 0 100%)",
+                                        zIndex: -1
+                                    }}></div>
+                                <h3 className='text-white md:font-bold md:text-4xl md:uppercase'>best brands <br/> 40%
+                                </h3>
+                                <img src={Brand} alt=""/>
+                                <div className='md:text-center'>
+                                    <button
+                                        className='bg-primary-light text-white md:text-sm md:mt-3 md:uppercase md:font-bold md:px-6 md:py-3 md:rounded-full transition-all duration-300 transform md:hover:text-primary-light md:hover:bg-white md:hover:scale-110'>check now</button>
+                                    <div className='md:text-sm md:mt-3'>Hurry up limited offers</div>
+                                </div>
+                            </div>
+                        </div>
                         <div className='md:col-span-3'>
-                            <div className='grid md:grid-cols-4'>
+                            <div className='grid md:grid-cols-4 md:gap-x-5 md:gap-y-6'>
                                 <div className='border border-gray-300 rounded-md duration-300 hover:shadow-xl'>
                                     <div className='md:p-3'>
                                         <img className='md:w-4/5 mx-auto' src={Product} alt=""/>
@@ -35,9 +58,191 @@ const Home = () => {
                                         <small className='text-gray-500 md:text-xs'>Already Sold: 91%</small>
                                     </div>
                                     <div className='border-t border-gray-300 grid md:grid-cols-3'>
-                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>h</div>
-                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>s</div>
-                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>m</div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faHeart} size={"sm"}
+                                                             className='hover:text-secondary'/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faSearchPlus} size={"sm"}/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faCommentDots} size={"sm"}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='border border-gray-300 rounded-md duration-300 hover:shadow-xl'>
+                                    <div className='md:p-3'>
+                                        <img className='md:w-4/5 mx-auto' src={Product} alt=""/>
+                                        <div className='text-secondary md:font-bold md:mt-3'>AED29.99</div>
+                                        <h4 className='md:font-bold md:mt-3'>Zimtown Android 6.0 TV Box Rockchip
+                                            RK3229</h4>
+                                        <div className='relative rounded-full md:mt-3 md:bg-gray-300 md:p-1'>
+                                            <div
+                                                className='md:absolute bg-secondary md:w-11/12 md:inset-0 md:rounded-full'></div>
+                                        </div>
+                                        <small className='text-gray-500 md:text-xs'>Already Sold: 91%</small>
+                                    </div>
+                                    <div className='border-t border-gray-300 grid md:grid-cols-3'>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faHeart} size={"sm"}
+                                                             className='hover:text-secondary'/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faSearchPlus} size={"sm"}/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faCommentDots} size={"sm"}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='border border-gray-300 rounded-md duration-300 hover:shadow-xl'>
+                                    <div className='md:p-3'>
+                                        <img className='md:w-4/5 mx-auto' src={Product} alt=""/>
+                                        <div className='text-secondary md:font-bold md:mt-3'>AED29.99</div>
+                                        <h4 className='md:font-bold md:mt-3'>Zimtown Android 6.0 TV Box Rockchip
+                                            RK3229</h4>
+                                        <div className='relative rounded-full md:mt-3 md:bg-gray-300 md:p-1'>
+                                            <div
+                                                className='md:absolute bg-secondary md:w-11/12 md:inset-0 md:rounded-full'></div>
+                                        </div>
+                                        <small className='text-gray-500 md:text-xs'>Already Sold: 91%</small>
+                                    </div>
+                                    <div className='border-t border-gray-300 grid md:grid-cols-3'>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faHeart} size={"sm"}
+                                                             className='hover:text-secondary'/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faSearchPlus} size={"sm"}/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faCommentDots} size={"sm"}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='border border-gray-300 rounded-md duration-300 hover:shadow-xl'>
+                                    <div className='md:p-3'>
+                                        <img className='md:w-4/5 mx-auto' src={Product} alt=""/>
+                                        <div className='text-secondary md:font-bold md:mt-3'>AED29.99</div>
+                                        <h4 className='md:font-bold md:mt-3'>Zimtown Android 6.0 TV Box Rockchip
+                                            RK3229</h4>
+                                        <div className='relative rounded-full md:mt-3 md:bg-gray-300 md:p-1'>
+                                            <div
+                                                className='md:absolute bg-secondary md:w-11/12 md:inset-0 md:rounded-full'></div>
+                                        </div>
+                                        <small className='text-gray-500 md:text-xs'>Already Sold: 91%</small>
+                                    </div>
+                                    <div className='border-t border-gray-300 grid md:grid-cols-3'>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faHeart} size={"sm"}
+                                                             className='hover:text-secondary'/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faSearchPlus} size={"sm"}/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faCommentDots} size={"sm"}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='border border-gray-300 rounded-md duration-300 hover:shadow-xl'>
+                                    <div className='md:p-3'>
+                                        <img className='md:w-4/5 mx-auto' src={Product} alt=""/>
+                                        <div className='text-secondary md:font-bold md:mt-3'>AED29.99</div>
+                                        <h4 className='md:font-bold md:mt-3'>Zimtown Android 6.0 TV Box Rockchip
+                                            RK3229</h4>
+                                        <div className='relative rounded-full md:mt-3 md:bg-gray-300 md:p-1'>
+                                            <div
+                                                className='md:absolute bg-secondary md:w-11/12 md:inset-0 md:rounded-full'></div>
+                                        </div>
+                                        <small className='text-gray-500 md:text-xs'>Already Sold: 91%</small>
+                                    </div>
+                                    <div className='border-t border-gray-300 grid md:grid-cols-3'>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faHeart} size={"sm"}
+                                                             className='hover:text-secondary'/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faSearchPlus} size={"sm"}/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faCommentDots} size={"sm"}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='border border-gray-300 rounded-md duration-300 hover:shadow-xl'>
+                                    <div className='md:p-3'>
+                                        <img className='md:w-4/5 mx-auto' src={Product} alt=""/>
+                                        <div className='text-secondary md:font-bold md:mt-3'>AED29.99</div>
+                                        <h4 className='md:font-bold md:mt-3'>Zimtown Android 6.0 TV Box Rockchip
+                                            RK3229</h4>
+                                        <div className='relative rounded-full md:mt-3 md:bg-gray-300 md:p-1'>
+                                            <div
+                                                className='md:absolute bg-secondary md:w-11/12 md:inset-0 md:rounded-full'></div>
+                                        </div>
+                                        <small className='text-gray-500 md:text-xs'>Already Sold: 91%</small>
+                                    </div>
+                                    <div className='border-t border-gray-300 grid md:grid-cols-3'>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faHeart} size={"sm"}
+                                                             className='hover:text-secondary'/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faSearchPlus} size={"sm"}/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faCommentDots} size={"sm"}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='border border-gray-300 rounded-md duration-300 hover:shadow-xl'>
+                                    <div className='md:p-3'>
+                                        <img className='md:w-4/5 mx-auto' src={Product} alt=""/>
+                                        <div className='text-secondary md:font-bold md:mt-3'>AED29.99</div>
+                                        <h4 className='md:font-bold md:mt-3'>Zimtown Android 6.0 TV Box Rockchip
+                                            RK3229</h4>
+                                        <div className='relative rounded-full md:mt-3 md:bg-gray-300 md:p-1'>
+                                            <div
+                                                className='md:absolute bg-secondary md:w-11/12 md:inset-0 md:rounded-full'></div>
+                                        </div>
+                                        <small className='text-gray-500 md:text-xs'>Already Sold: 91%</small>
+                                    </div>
+                                    <div className='border-t border-gray-300 grid md:grid-cols-3'>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faHeart} size={"sm"}
+                                                             className='hover:text-secondary'/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faSearchPlus} size={"sm"}/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faCommentDots} size={"sm"}/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='border border-gray-300 rounded-md duration-300 hover:shadow-xl'>
+                                    <div className='md:p-3'>
+                                        <img className='md:w-4/5 mx-auto' src={Product} alt=""/>
+                                        <div className='text-secondary md:font-bold md:mt-3'>AED29.99</div>
+                                        <h4 className='md:font-bold md:mt-3'>Zimtown Android 6.0 TV Box Rockchip
+                                            RK3229</h4>
+                                        <div className='relative rounded-full md:mt-3 md:bg-gray-300 md:p-1'>
+                                            <div
+                                                className='md:absolute bg-secondary md:w-11/12 md:inset-0 md:rounded-full'></div>
+                                        </div>
+                                        <small className='text-gray-500 md:text-xs'>Already Sold: 91%</small>
+                                    </div>
+                                    <div className='border-t border-gray-300 grid md:grid-cols-3'>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faHeart} size={"sm"}
+                                                             className='hover:text-secondary'/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faSearchPlus} size={"sm"}/>
+                                        </div>
+                                        <div className='md:p-1 md:text-center hover:bg-gray-200'>
+                                            <FontAwesomeIcon icon={faCommentDots} size={"sm"}/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
