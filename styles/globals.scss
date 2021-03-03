@@ -1,0 +1,111 @@
+/* ./styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-white;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.text-primary {
+  color: #3fa547;
+}
+
+.filterBox:not(:first-child) {
+  @apply md:mt-6;
+}
+
+.filterBox h3 {
+  position: relative;
+}
+
+.filterBox h3:after {
+  content: '';
+  position: absolute;
+  border: 1px solid #3fa547;
+  left: 0;
+  bottom: 0;
+  width: 80px;
+}
+
+#heroBanner {
+  background: url("./../public/static/images/hero.jpg");
+}
+
+#productNav ul li a::after {
+  content: '';
+  @apply border-b-2 border-primary transform origin-center duration-500 scale-x-0 absolute inset-x-0 bottom-0;
+}
+
+#productNav ul li a:hover::after {
+  @apply scale-x-100;
+}
+
+#productDescription {
+  p {
+    @apply md:mb-8;
+  }
+
+  blockquote {
+    @apply italic text-primary md:text-xl md:font-semibold md:px-8;
+  }
+
+  h2 {
+    @apply md:text-3xl md:mb-6 md:font-bold;
+  }
+
+  .wpsm-table.wpsm-table-main-color {
+    table {
+      @apply md:w-full md:mb-8;
+      th {
+        @apply bg-primary text-white md:p-2;
+      }
+
+      td {
+        @apply md:p-2;
+      }
+
+      tr {
+        &:nth-child(odd):not(:first-child) {
+          @apply bg-white;
+        }
+
+        &:nth-child(even) {
+          @apply bg-gray-200 border-t border-b border-gray-300;
+        }
+      }
+    }
+  }
+
+  ul {
+    @apply list-disc list-inside md:mb-8;
+  }
+
+  .wpsm-testimonial {
+    .wpsm-testimonial-content {
+      @apply bg-gray-100 md:p-3;
+    }
+
+    .wpsm-testimonial-author {
+      @apply md:flex md:my-4 md:items-center md:font-bold;
+      img {
+        @apply md:w-10 md:h-auto md:mx-4;
+      }
+    }
+  }
+
+  .wpsm_update {
+    @apply bg-blue-100 border border-gray-100 md:p-3 md:rounded-md;
+    span{
+      @apply bg-blue-400 text-white md:px-2 md:py-0.5 md:mr-2 md:text-xs md:font-semibold;
+    }
+    a{
+      @apply text-primary;
+      &:hover{
+        @apply underline;
+      }
+    }
+  }
+
+}
