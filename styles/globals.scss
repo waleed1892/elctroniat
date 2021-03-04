@@ -3,9 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+html,body {
   @apply bg-white;
   font-family: 'Quicksand', sans-serif;
+  scroll-behavior: smooth;
 }
 
 .text-primary {
