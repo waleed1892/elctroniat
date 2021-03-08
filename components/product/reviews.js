@@ -1,7 +1,7 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 
-const UserReviews = () => {
+const UserReviews = ({product}) => {
     return (
         <div id='reviews' className='border border-gray-100 shadow-md md:mb-6 md:px-12 md:py-10'>
             <h2 className='border-b border-gray-100 md:text-2xl md:mb-6 md:font-bold md:pb-4'>
@@ -77,7 +77,8 @@ const UserReviews = () => {
                 </div>
             </div>
             <div className='md:mb-6'>There are not reviews yet</div>
-            <h3 className='md:mb-6 md:font-bold md:text-xl'>Be the first to review <em>"</em>produc here<em>"</em></h3>
+            <h3 className='md:mb-6 md:font-bold md:text-xl'>Be the first to review <em>"</em>{product.name}<em>"</em>
+            </h3>
             <div className='text-gray-500 md:text-sm md:mb-6'>Your email address will not be published. Required fields
                 are marked <span
                     className='text-secondary'>*</span></div>

@@ -1,6 +1,5 @@
 import {useState} from "react";
 import Link from "next/link";
-
 import StickyNavbar from "../components/StickyNavbar";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -8,11 +7,11 @@ import woocomerce from "../woocomerce";
 import FilterBar from "../components/shop/filterBar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-regular-svg-icons";
-import {faSearchPlus} from "@fortawesome/free-solid-svg-icons";
+import {faArrowDown, faSearchPlus} from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Theme/Loader";
 
 
-const shop = ({products, totalProducts, totalPages}) => {
+const shop = ({products, totalProducts, totalPages, attributes}) => {
     const [productsArr, setProducts] = useState(products)
     const [loader, setLoader] = useState(false)
     const [page, setPage] = useState(1)
@@ -29,13 +28,26 @@ const shop = ({products, totalProducts, totalPages}) => {
         setLoader(false)
         setPage(page)
     }
+
+    const editorChoice = (product) => {
+        const editorChoice = product.meta_data.find(item => item.key === 'is_editor_choice')
+        if (editorChoice) {
+            if (editorChoice.value === '2') {
+                return <div>best seller</div>
+            } else if (editorChoice.value === '3') {
+                return <div>best value</div>
+            }
+        } else {
+            return false;
+        }
+    }
     return (
         <div>
             <Header/>
             <StickyNavbar/>
             <div className='md:mx-24 md:py-6'>
                 <div className='grid md:grid-cols-4 gap-x-6'>
-                    <FilterBar/>
+                    <FilterBar attributes={attributes}/>
                     <div className='md:col-span-3'>
                         <div className='md:flex md:justify-between'>
                             <div
@@ -57,14 +69,17 @@ const shop = ({products, totalProducts, totalPages}) => {
                                     productsArr.map(product =>
                                         <div key={product.id}
                                              className='bg-white shadow-lg border border-gray-50 md:flex md:flex-col md:justify-between'>
+                                            {
+                                                editorChoice(product)
+                                            }
                                             <div className='md:py-2 md:px-4'>
                                                 {
                                                     product.images.length > 0 &&
                                                     <img src={product.images[0].src}
                                                          alt=""/>
                                                 }
-                                                <Link href={`product/${product.slug}`}><a
-                                                    className='md:font-bold md:text-xl md:mt-3 inline-block'>{product.name}</a>
+                                                <Link href={`product/${product.slug}`}>
+                                                    <a className='md:font-bold md:text-xl md:mt-3 inline-block'>{product.name}</a>
                                                 </Link>
 
                                             </div>
@@ -76,7 +91,16 @@ const shop = ({products, totalProducts, totalPages}) => {
                                                                      className='md:ml-3 cursor-pointer'/>
                                                 </div>
                                                 <div
-                                                    className='text-secondary md:font-bold md:text-lg md:tracking-wide'>AED{product.price}
+                                                    className='text-secondary md:font-bold md:text-lg md:tracking-wide'>
+                                                    AED{product.price}
+                                                    {
+                                                        product.price < product.regular_price &&
+                                                        <span
+                                                            className='text-primary text-right block text-xs'><FontAwesomeIcon
+                                                            icon={faArrowDown}/>
+                                                            {Math.floor((((product.regular_price - product.price) / product.regular_price) * 100))} %
+                                                        </span>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -116,11 +140,21 @@ export async function getStaticProps() {
     const products = data
     const totalProducts = headers['x-wp-total'];
     const totalPages = Number(headers['x-wp-totalpages']);
+
+    const resAttributes = await woocomerce.get('products/attributes')
+    const allAttributes = resAttributes.data
+    const attributesTermsIndices = ['color', 'display', 'memory', 'operation-system'];
+    const attributes = allAttributes.filter(attribute => attributesTermsIndices.includes(attribute.name));
+    for (const attribute of attributes) {
+        const res = await woocomerce.get(`products/attributes/${attribute.id}/terms`);
+        attribute.options = res.data
+    }
     return {
         props: {
             products,
             totalProducts,
-            totalPages
+            totalPages,
+            attributes,
         }
     }
 }

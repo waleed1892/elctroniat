@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html,body {
+html, body {
   @apply bg-white;
   font-family: 'Quicksand', sans-serif;
   scroll-behavior: smooth;
@@ -13,21 +13,27 @@ html,body {
   color: #3fa547;
 }
 
-.filterBox:not(:first-child) {
-  @apply md:mt-6;
-}
+.filterBox {
+  &:not(:first-child) > div{
+    max-height: 180px;
+    overflow-y: auto;
+  }
+  &:not(:first-child) {
+    @apply md:mt-6;
+  }
 
-.filterBox h3 {
-  position: relative;
-}
+  h3 {
+    position: relative;
 
-.filterBox h3:after {
-  content: '';
-  position: absolute;
-  border: 1px solid #3fa547;
-  left: 0;
-  bottom: 0;
-  width: 80px;
+    &:after {
+      content: '';
+      position: absolute;
+      border: 1px solid #3fa547;
+      left: 0;
+      bottom: 0;
+      width: 80px;
+    }
+  }
 }
 
 #heroBanner {
@@ -98,12 +104,13 @@ html,body {
 
   .wpsm_update {
     @apply bg-blue-100 border border-gray-100 md:p-3 md:rounded-md;
-    span{
+    span {
       @apply bg-blue-400 text-white md:px-2 md:py-0.5 md:mr-2 md:text-xs md:font-semibold;
     }
-    a{
+
+    a {
       @apply text-primary;
-      &:hover{
+      &:hover {
         @apply underline;
       }
     }

@@ -13,13 +13,13 @@ const Specification = ({product}) => {
                 {
                     product.attributes.map(attribute => {
                         return (
-                            <tr>
+                            <tr key={attribute.id}>
                                 <th className='border border-gray-100 md:py-1 md:px-2 md:text-right md:text-sm'>{attribute.name}</th>
                                 <td className='border border-gray-100 md:py-1 md:px-2'>
                                     {
                                         attribute.options.map((option, index) => {
                                             return (
-                                                <span>{option}{index !== attribute.options.length && ', '}</span>
+                                                <span key={option}>{option}{index !== attribute.options.length -1 && ', '}</span>
                                             )
                                         })
                                     }

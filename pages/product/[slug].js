@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 import Header from "../../components/Header";
 import StickyNavbar from "../../components/StickyNavbar";
 import Footer from "../../components/Footer";
@@ -11,11 +13,16 @@ import Policies from "../../components/product/policies";
 import Inquiries from "../../components/product/inquiries";
 import {faEye} from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
+// Import Swiper React components
+import {Swiper, SwiperSlide} from 'swiper/react';
+import SwiperCore, {Thumbs} from 'swiper/core';
 
+SwiperCore.use([Thumbs]);
 
 const HtmlToReactParser = require('html-to-react').Parser;
 
 const Product = ({product}) => {
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
     console.log(product)
     let htmlToReactParser = new HtmlToReactParser();
     let shortDescription = htmlToReactParser.parse(product.short_description);
@@ -26,10 +33,44 @@ const Product = ({product}) => {
             <Header/>
             <StickyNavbar/>
             <div className='md:mx-10 md:py-6'>
-                <div className='grid md:grid-cols-3'>
-                    <div></div>
+                <div className='grid md:grid-cols-5 md:gap-x-4'>
+                    {/*Product Images*/}
+                    <div className='md:col-span-2'>
+                        <div className='md:flex'>
+                            <div className='md:w-2/12 md:self-start'>
+                                <Swiper
+                                    direction='vertical'
+                                    spaceBetween={20}
+                                    onSwiper={setThumbsSwiper}
+                                    slidesPerView={4}>
+                                    {
+                                        product.images.map(image => {
+                                            return (
+                                                <SwiperSlide>
+                                                    <img className='border md:w-14 md:h-auto' src={image.src} alt=""/>
+                                                </SwiperSlide>
+                                            )
+                                        })
+                                    }
+                                </Swiper>
+                            </div>
+                            <div className='md:w-10/12'>
+                                <Swiper thumbs={{swiper: thumbsSwiper}}>
+                                    {
+                                        product.images.map(image => {
+                                            return (
+                                                <SwiperSlide><img src={image.src} alt=""/></SwiperSlide>
+                                            )
+                                        })
+                                    }
+                                </Swiper>
+                            </div>
+                        </div>
+                    </div>
+                    {/*Product Images End*/}
+
                     {/*Product Info*/}
-                    <div>
+                    <div className='md:col-span-2'>
                         <h1 className='md:text-2xl md:font-bold md:mb-6'>{product.name}</h1>
                         <div className='border-b border-gray-100 md:flex md:items-center md:mb-6 md:pb-4'>
                             <a href='#reviews' className='text-gray-500 md:text-sm md:self-end'>Add your review</a>
@@ -39,7 +80,7 @@ const Product = ({product}) => {
                             <div className='md:ml-2'>
                                 {
                                     product.categories.map((category, index) =>
-                                        <Link href={category.slug}><a
+                                        <Link key={category.id} href={category.slug}><a
                                             className='text-primary hover:underline md:text-xs'>{category.name}{(index !== product.categories.length - 1) && ', '}</a></Link>
                                     )
                                 }
@@ -50,11 +91,12 @@ const Product = ({product}) => {
                         <div className='md:mb-4'>
                             {product.attributes.map(attribute => {
                                 return (
-                                    <div className='md:mb-2'>
+                                    <div key={attribute.id} className='md:mb-2'>
                                         <label className='md:font-semibold' for="">{attribute.name}: </label>
                                         {
                                             attribute.options.map((option, index) =>
-                                                <span>{option}{index !== attribute.options.length - 1 && ', '}</span>)
+                                                <span
+                                                    key={option}>{option}{index !== attribute.options.length - 1 && ', '}</span>)
                                         }
                                     </div>
                                 )
@@ -67,11 +109,25 @@ const Product = ({product}) => {
                         </button>
                     </div>
                     {/*Product Info End*/}
-                    <div></div>
+                    <div>
+                        <div className='bg-white border border-gray-100 md:shadow-md md:p-3'>
+                            <div className='md:text-2xl md:mb-6'>{product.price}</div>
+                            <div className='md:flex md:items-center'>
+                                <div className='md:w-2/12'>
+                                    <input className='appearance-none border-b w-full' type="number"/>
+                                </div>
+                                <div className='md:w-10/12 md:text-center'>
+                                    <button
+                                        className='uppercase bg-primary text-white md:font-bold md:py-1 md:px-5 md:rounded-sm md:shadow-md'>Add to cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div>
-                <div id='productNav' className='bg-white border md:mb-6'>
+                <div id='productNav' className='bg-white border md:mb-6 md:shadow-md'>
                     <ul className='md:flex md:justify-center list-none'>
                         <li>
                             <a className='text-gray-400 relative inline-block md:px-4 md:py-2 md:text-lg md:font-semibold'
@@ -105,7 +161,7 @@ const Product = ({product}) => {
                         {description}
                     </div>
                     <Specification product={product}/>
-                    <UserReviews/>
+                    <UserReviews product={product}/>
                     <Offers/>
                     <Policies/>
                     <Inquiries/>
