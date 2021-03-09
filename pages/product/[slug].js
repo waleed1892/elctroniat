@@ -5,13 +5,13 @@ import StickyNavbar from "../../components/StickyNavbar";
 import Footer from "../../components/Footer";
 import woocomerce from "../../woocomerce";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faQuestionCircle, faSlidersH, faStar} from "@fortawesome/free-solid-svg-icons";
+import {faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
 import Specification from "../../components/product/specification";
-import UserReviews from "../../components/product/reviews";
+import UserReviews from "../../components/product/reviews/reviews";
 import Offers from "../../components/product/offers";
 import Policies from "../../components/product/policies";
 import Inquiries from "../../components/product/inquiries";
-import {faEye} from "@fortawesome/free-regular-svg-icons";
+import {faEye, faHeart} from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
 // Import Swiper React components
 import {Swiper, SwiperSlide} from 'swiper/react';
@@ -21,9 +21,8 @@ SwiperCore.use([Thumbs]);
 
 const HtmlToReactParser = require('html-to-react').Parser;
 
-const Product = ({product}) => {
+const Product = ({product, reviews}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    console.log(product)
     let htmlToReactParser = new HtmlToReactParser();
     let shortDescription = htmlToReactParser.parse(product.short_description);
     let description = htmlToReactParser.parse(product.description)
@@ -111,17 +110,22 @@ const Product = ({product}) => {
                     {/*Product Info End*/}
                     <div>
                         <div className='bg-white border border-gray-100 md:shadow-md md:p-3'>
-                            <div className='md:text-2xl md:mb-6'>{product.price}</div>
-                            <div className='md:flex md:items-center'>
-                                <div className='md:w-2/12'>
-                                    <input className='appearance-none border-b w-full' type="number"/>
-                                </div>
+                            <div className='md:text-2xl md:mb-6'>AED {product.price}</div>
+                            <div className='md:flex md:items-center md:mb-6'>
+                                <form className='md:w-2/12'>
+                                    <input className='appearance-none border-b w-full outline-none' type="number"/>
+                                </form>
                                 <div className='md:w-10/12 md:text-center'>
                                     <button
-                                        className='uppercase bg-primary text-white md:font-bold md:py-1 md:px-5 md:rounded-sm md:shadow-md'>Add to cart
+                                        className='uppercase bg-primary text-white md:font-bold md:py-1 md:px-5 md:rounded-sm md:shadow-md'>Add
+                                        to cart
                                     </button>
                                 </div>
                             </div>
+                            <button className='transform rounded-sm origin-left duration-300 hover:scale-x-105 hover:text-secondary border border-transparent hover:border-gray-200 md:flex md:items-center md:px-2 md:py-1'>
+                                <FontAwesomeIcon icon={faHeart}/>
+                                <div className='md:ml-2'>Add to wishlist</div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -161,7 +165,7 @@ const Product = ({product}) => {
                         {description}
                     </div>
                     <Specification product={product}/>
-                    <UserReviews product={product}/>
+                    <UserReviews product={product} reviews={reviews}/>
                     <Offers/>
                     <Policies/>
                     <Inquiries/>
@@ -178,9 +182,12 @@ export async function getServerSideProps({params}) {
     const {slug} = params
     const {data} = await woocomerce(`products?slug=${slug}`);
     const product = data[0]
+    const reviewRes = await woocomerce(`products/reviews?product=${[product.id]}`)
+    const reviews = reviewRes.data
     return {
         props: {
-            product
+            product,
+            reviews
         }
     }
 }

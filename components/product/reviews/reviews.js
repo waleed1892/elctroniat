@@ -1,7 +1,14 @@
+import {useState} from "react";
+
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
+import ReviewForm from "./reviewForm";
 
-const UserReviews = ({product}) => {
+const HtmlToReactParser = require('html-to-react').Parser;
+
+const UserReviews = ({product, reviews}) => {
+    let htmlToReactParser = new HtmlToReactParser();
+
     return (
         <div id='reviews' className='border border-gray-100 shadow-md md:mb-6 md:px-12 md:py-10'>
             <h2 className='border-b border-gray-100 md:text-2xl md:mb-6 md:font-bold md:pb-4'>
@@ -76,69 +83,39 @@ const UserReviews = ({product}) => {
                     </button>
                 </div>
             </div>
-            <div className='md:mb-6'>There are not reviews yet</div>
+            {
+                reviews.length > 0 ?
+                    <div className='md:mb-6'>
+                        {
+                            reviews.map(review => {
+                                return (
+                                    <div key={review.id}
+                                         className='border border-gray-300 md:flex md:items-center md:p-4 md:mb-3'>
+                                        <img className='border-4 border-gray-200 md:w-20 md:h-20 md:rounded-full'
+                                             src={review.reviewer_avatar_urls[Object.keys(review.reviewer_avatar_urls)[Object.keys(review.reviewer_avatar_urls).length - 1]]}
+                                             alt=""/>
+                                        <div className='border-b border-gray-200 md:ml-3 md:flex-1'>
+                                            <div
+                                                className='text-sm font-semibold uppercase text-gray-600 md:mb-2'>{review.reviewer} - <span
+                                                className='text-gray-400 font-normal'>{review.date_created}</span></div>
+                                            <div className='md:mb-3'>
+                                                {htmlToReactParser.parse(review.review)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    :
+                    <div className='md:mb-6'>There are not reviews yet</div>
+            }
             <h3 className='md:mb-6 md:font-bold md:text-xl'>Be the first to review <em>"</em>{product.name}<em>"</em>
             </h3>
             <div className='text-gray-500 md:text-sm md:mb-6'>Your email address will not be published. Required fields
                 are marked <span
                     className='text-secondary'>*</span></div>
-            <div className='md:flex md:items-center md:mb-6'>
-                <div>Your rating</div>
-                <div className='md:ml-2'>
-                    <FontAwesomeIcon className='duration-100 transition-colors hover:text-orange-500 text-gray-200'
-                                     size={"sm"}
-                                     icon={faStar}/>
-                    <FontAwesomeIcon className='duration-100 transition-colors hover:text-orange-500 text-gray-200'
-                                     size={"sm"}
-                                     icon={faStar}/>
-                    <FontAwesomeIcon className='duration-100 transition-colors hover:text-orange-500 text-gray-200'
-                                     size={"sm"}
-                                     icon={faStar}/>
-                    <FontAwesomeIcon className='duration-100 transition-colors hover:text-orange-500 text-gray-200'
-                                     size={"sm"}
-                                     icon={faStar}/>
-                    <FontAwesomeIcon className='duration-100 transition-colors hover:text-orange-500 text-gray-200'
-                                     size={"sm"}
-                                     icon={faStar}/>
-                </div>
-            </div>
-            <form action="">
-                <div className='md:grid md:grid-cols-2 md:gap-y-4 md:gap-x-10 md:mb-6'>
-                    <div className='md:col-span-2'>
-                        <label className='md:block' htmlFor="">Your Review <span
-                            className='text-secondary md:text-lg'>*</span></label>
-                        <textarea rows={3}
-                                  className='rounded outline-none border border-gray-300 duration-300 focus:border-gray-500 md:w-full md:py-1.5 md:px-2'></textarea>
-                    </div>
-                    <div>
-                        <textarea rows={3}
-                                  className='rounded outline-none border border-gray-300 duration-300 focus:border-gray-500 md:w-full md:py-1.5 md:px-2'></textarea>
-                    </div>
-                    <div>
-                        <textarea rows={3}
-                                  className='rounded outline-none border border-gray-300 duration-300 focus:border-gray-500 md:w-full md:py-1.5 md:px-2'></textarea>
-                    </div>
-                    <div className='md:col-span-2'>
-                        <label className='md:block' htmlFor="">Name <span
-                            className='text-secondary md:text-lg'>*</span></label>
-                        <input type="text"
-                               className='rounded outline-none border border-gray-300 duration-300 focus:border-gray-500 md:w-full md:py-1.5 md:px-2'/>
-                    </div>
-                    <div className='md:col-span-2'>
-                        <label className='md:block' htmlFor="">Email <span
-                            className='text-secondary md:text-lg'>*</span></label>
-                        <input type="email"
-                               className='rounded outline-none border border-gray-300 duration-300 focus:border-gray-500 md:w-full md:py-1.5 md:px-2'/>
-                    </div>
-                </div>
-                <label className='md:block md:mb-6' htmlFor=""><input type="checkbox"/> Save my name, email, and website
-                    in this
-                    browser for the next time I comment.</label>
-
-                <button
-                    className='uppercase bg-primary text-white md:font-bold md:py-1 md:px-5 md:rounded-sm md:shadow-md'>Submit
-                </button>
-            </form>
+            <ReviewForm product={product}></ReviewForm>
         </div>
     );
 }
