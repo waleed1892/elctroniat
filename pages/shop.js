@@ -75,7 +75,7 @@ const shop = ({products, totalProducts, totalPages, attributes}) => {
                                             <div className='md:py-2 md:px-4'>
                                                 {
                                                     product.images.length > 0 &&
-                                                    <img src={product.images[0].src}
+                                                    <img loading={"lazy"} decoding={"async"} src={product.images[0].src}
                                                          alt=""/>
                                                 }
                                                 <Link href={`product/${product.slug}`}>

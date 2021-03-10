@@ -5,9 +5,8 @@ import StickyNavbar from "../../components/StickyNavbar";
 import Footer from "../../components/Footer";
 import woocomerce from "../../woocomerce";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
+import {faQuestionCircle, faStar} from "@fortawesome/free-solid-svg-icons";
 import Specification from "../../components/product/specification";
-import UserReviews from "../../components/product/reviews/reviews";
 import Offers from "../../components/product/offers";
 import Policies from "../../components/product/policies";
 import Inquiries from "../../components/product/inquiries";
@@ -16,17 +15,32 @@ import Link from "next/link";
 // Import Swiper React components
 import {Swiper, SwiperSlide} from 'swiper/react';
 import SwiperCore, {Thumbs} from 'swiper/core';
+import RelatedProducts from "../../components/product/relatedProducts";
+import Reviews from "../../components/product/reviews/reviews";
 
 SwiperCore.use([Thumbs]);
 
 const HtmlToReactParser = require('html-to-react').Parser;
+const publicIp = require('public-ip');
 
-const Product = ({product, reviews}) => {
+const Product = ({product, reviews, relatedProducts}) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const [ip, setIp] = useState(null)
     let htmlToReactParser = new HtmlToReactParser();
     let shortDescription = htmlToReactParser.parse(product.short_description);
     let description = htmlToReactParser.parse(product.description)
     const views = product.meta_data.find(item => item.key === 'rehub_views');
+    const wishlistCount = product.meta_data.find(item => item.key === 'post_wish_count');
+    const getPublicIp = async () => {
+        let ip = await publicIp.v4()
+        setIp(ip)
+    }
+    getPublicIp();
+    let inMyWishlist = product.meta_data.find(item => item.key === '_userwish_IP')
+    if (inMyWishlist) {
+        inMyWishlist = Object.values(inMyWishlist.value[0])
+        inMyWishlist = inMyWishlist.includes(ip)
+    }
     return (
         <div>
             <Header/>
@@ -72,7 +86,22 @@ const Product = ({product, reviews}) => {
                     <div className='md:col-span-2'>
                         <h1 className='md:text-2xl md:font-bold md:mb-6'>{product.name}</h1>
                         <div className='border-b border-gray-100 md:flex md:items-center md:mb-6 md:pb-4'>
-                            <a href='#reviews' className='text-gray-500 md:text-sm md:self-end'>Add your review</a>
+                            {
+                                reviews.length > 0 ?
+                                    <div className='text-xs'>
+                                        <FontAwesomeIcon className='text-orange-500' icon={faStar}/>
+                                        <FontAwesomeIcon className='text-orange-500' icon={faStar}/>
+                                        <FontAwesomeIcon className='text-orange-500' icon={faStar}/>
+                                        <FontAwesomeIcon className='text-orange-500' icon={faStar}/>
+                                        <FontAwesomeIcon className='text-orange-500' icon={faStar}/>
+                                        <span
+                                            className='md:ml-2 text-gray-500'>({reviews.length} customer reviews)</span>
+                                    </div>
+                                    :
+                                    <a href='#reviews' className='text-gray-500 md:text-sm md:self-end'>Add your
+                                        review</a>
+                            }
+
                             <div className='md:ml-2 md:text-sm'><FontAwesomeIcon className='text-gray-500 md:text-sm'
                                                                                  icon={faEye}/> {views.value}
                             </div>
@@ -122,9 +151,12 @@ const Product = ({product, reviews}) => {
                                     </button>
                                 </div>
                             </div>
-                            <button className='transform rounded-sm origin-left duration-300 hover:scale-x-105 hover:text-secondary border border-transparent hover:border-gray-200 md:flex md:items-center md:px-2 md:py-1'>
-                                <FontAwesomeIcon icon={faHeart}/>
+                            <button
+                                className='transform rounded-sm relative origin-left duration-300 hover:scale-x-105 hover:text-secondary border border-transparent group hover:border-gray-200 md:flex md:items-center md:px-2 md:py-1'>
+                                <FontAwesomeIcon className={inMyWishlist ? 'text-secondary' : ''} icon={faHeart}/>
                                 <div className='md:ml-2'>Add to wishlist</div>
+                                <span
+                                    className='absolute duration-100 transform transition-transform -top-3 scale-0 right-0 text-sm text-white bg-secondary w-5 h-5 items-center justify-center flex rounded-full group-hover:scale-100'>{wishlistCount ? wishlistCount.value : 0}</span>
                             </button>
                         </div>
                     </div>
@@ -165,10 +197,14 @@ const Product = ({product, reviews}) => {
                         {description}
                     </div>
                     <Specification product={product}/>
-                    <UserReviews product={product} reviews={reviews}/>
+                    <Reviews product={product} reviews={reviews}/>
                     <Offers/>
                     <Policies/>
                     <Inquiries/>
+                    {
+                        relatedProducts.length > 0 &&
+                        <RelatedProducts relatedProducts={relatedProducts}></RelatedProducts>
+                    }
                 </div>
             </div>
             <Footer/>
@@ -184,10 +220,16 @@ export async function getServerSideProps({params}) {
     const product = data[0]
     const reviewRes = await woocomerce(`products/reviews?product=${[product.id]}`)
     const reviews = reviewRes.data
+    let relatedProducts = [];
+    if (product.related_ids.length > 0) {
+        const relatedProductsRes = await woocomerce.get(`products?include=${product.related_ids}`);
+        relatedProducts = relatedProductsRes.data
+    }
     return {
         props: {
             product,
-            reviews
+            reviews,
+            relatedProducts
         }
     }
 }
