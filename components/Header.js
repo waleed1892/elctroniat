@@ -1,7 +1,14 @@
 import Link from "next/link";
 import Logo from './../public/static/images/logo.png'
+import debounce from "lodash.debounce";
+
 
 const Header = () => {
+
+    const searchInputHandler = debounce((e) => {
+        const {name, value} = e.target
+        console.log(value)
+    }, 1000)
     return (
         <header>
             <div id='top-nav' className='flex border-b border-gray-400 md:justify-between md:items-center md:mx-24'>
@@ -43,7 +50,8 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className='md:col-span-2'>
-                    <input type="text" className='border outline-none bg-gray-100 md:w-full md:px-4 md:py-1.5'
+                    <input onChange={searchInputHandler} type="text"
+                           className='border outline-none bg-gray-100 md:w-full md:px-4 md:py-1.5'
                            placeholder='What are you looking for...'/>
                 </div>
                 <ul className='md:col-span-3 md:flex md:divide-x md:divide-gray-400 md:text-sm md:font-semibold text-gray-500'>

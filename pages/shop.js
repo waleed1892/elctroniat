@@ -11,22 +11,34 @@ import {faArrowDown, faSearchPlus} from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Theme/Loader";
 
 
-const shop = ({products, totalProducts, totalPages, attributes}) => {
+const shop = ({products, totalProductsProp, totalPagesProp, attributes}) => {
     const [productsArr, setProducts] = useState(products)
     const [loader, setLoader] = useState(false)
     const [page, setPage] = useState(1)
-    const paginationLinks = [];
+    const [totalPages, setTotalPages] = useState(totalPagesProp)
+    const [totalProducts, setTotalProducts] = useState(totalProductsProp)
+    const [filterUrl, setFilterUrl] = useState('')
+    let paginationLinks = [];
     for (let i = 1; i <= totalPages; i++) {
         paginationLinks.push(i)
     }
 
-    const changePage = async (e, page) => {
+    const changePage = async (e, pageParam) => {
         e.preventDefault()
+        if (pageParam === page) {
+            return;
+        }
+        let url = filterUrl
+        if (filterUrl) {
+            url += `&per_page=12&page=${pageParam}&orderby=title&order=asc`
+        } else {
+            url += `?per_page=12&page=${pageParam}&orderby=title&order=asc`
+        }
         setLoader(true)
-        const {data} = await woocomerce.get(`products?per_page=12&page=${page}&orderby=title&order=asc`);
+        const {data} = await woocomerce.get(url);
         setProducts(data)
         setLoader(false)
-        setPage(page)
+        setPage(pageParam)
     }
 
     const editorChoice = (product) => {
@@ -41,13 +53,28 @@ const shop = ({products, totalProducts, totalPages, attributes}) => {
             return false;
         }
     }
+
+    const filterProducts = async (url) => {
+        setFilterUrl(url)
+        setLoader(true);
+        url += `&per_page=12&orderby=title&order=asc`;
+        const {data, headers} = await woocomerce(url);
+        setProducts(data)
+        setLoader(false)
+        setTotalPages(Number(headers['x-wp-totalpages']))
+        setTotalProducts(Number(headers['x-wp-total']))
+        for (let i = 1; i <= totalPages; i++) {
+            paginationLinks.push(i)
+        }
+    }
+
     return (
         <div>
             <Header/>
             <StickyNavbar/>
             <div className='md:mx-24 md:py-6'>
                 <div className='grid md:grid-cols-4 gap-x-6'>
-                    <FilterBar attributes={attributes}/>
+                    <FilterBar filterProducts={filterProducts} attributes={attributes}/>
                     <div className='md:col-span-3'>
                         <div className='md:flex md:justify-between'>
                             <div
@@ -112,11 +139,11 @@ const shop = ({products, totalProducts, totalPages, attributes}) => {
                             <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
                                  aria-label="Pagination">
                                 {
-                                    paginationLinks.map(page => <a onClick={(e) => {
-                                            changePage(e, page)
-                                        }} key={page} href="#"
-                                                                   className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                            {page}
+                                    paginationLinks.map(item => <a onClick={(e) => {
+                                            changePage(e, item)
+                                        }} key={item} href="#"
+                                                                   className={"relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50" + (page === item ? ' pointer-events-none' : '')}>
+                                            {item}
                                         </a>
                                     )
                                 }
@@ -138,8 +165,8 @@ export async function getStaticProps() {
         headers
     } = await woocomerce.get('products?per_page=12&page=1&orderby=title&order=asc')
     const products = data
-    const totalProducts = headers['x-wp-total'];
-    const totalPages = Number(headers['x-wp-totalpages']);
+    const totalProductsProp = headers['x-wp-total'];
+    const totalPagesProp = Number(headers['x-wp-totalpages']);
 
     const resAttributes = await woocomerce.get('products/attributes')
     const allAttributes = resAttributes.data
@@ -152,8 +179,8 @@ export async function getStaticProps() {
     return {
         props: {
             products,
-            totalProducts,
-            totalPages,
+            totalProductsProp,
+            totalPagesProp,
             attributes,
         }
     }
