@@ -17,6 +17,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import SwiperCore, {Thumbs} from 'swiper/core';
 import RelatedProducts from "../../components/product/relatedProducts";
 import Reviews from "../../components/product/reviews/reviews";
+import axios from "axios";
 
 SwiperCore.use([Thumbs]);
 
@@ -24,13 +25,15 @@ const HtmlToReactParser = require('html-to-react').Parser;
 const publicIp = require('public-ip');
 
 const Product = ({product, reviews, relatedProducts}) => {
+    console.log(product)
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [ip, setIp] = useState(null)
     let htmlToReactParser = new HtmlToReactParser();
     let shortDescription = htmlToReactParser.parse(product.short_description);
     let description = htmlToReactParser.parse(product.description)
-    const views = product.meta_data.find(item => item.key === 'rehub_views');
-    const wishlistCount = product.meta_data.find(item => item.key === 'post_wish_count');
+    const views = product.meta_data.find(item => item.key === 'rehub_views') || 0;
+    const wishlistCount = product.meta_data.find(item => item.key === 'post_wish_count') || 0;
+
     const getPublicIp = async () => {
         let ip = await publicIp.v4()
         setIp(ip)
@@ -41,6 +44,24 @@ const Product = ({product, reviews, relatedProducts}) => {
         inMyWishlist = Object.values(inMyWishlist.value[0])
         inMyWishlist = inMyWishlist.includes(ip)
     }
+
+    const toggleWish = async (e) => {
+        const data = {
+            action: 'rhwishlist',
+            wishnonce: 'b885cf9d2b',
+            wish_count: 'remove',
+            post_id: product.id
+        }
+        await axios.post('https://elctroniat.com/wp-admin/admin-ajax.php', data)
+    }
+
+    const addToCart = async () => {
+        const data = {
+            product_id: product.id
+        }
+        await axios.post('https://elctroniat.com/?wc-ajax=add_to_cart', data)
+    }
+
     return (
         <div>
             <Header/>
@@ -53,7 +74,7 @@ const Product = ({product, reviews, relatedProducts}) => {
                             <div className='md:w-2/12 md:self-start'>
                                 <Swiper
                                     direction='vertical'
-                                    spaceBetween={20}
+                                    spaceBetween={15}
                                     onSwiper={setThumbsSwiper}
                                     slidesPerView={4}>
                                     {
@@ -146,13 +167,15 @@ const Product = ({product, reviews, relatedProducts}) => {
                                 </form>
                                 <div className='md:w-10/12 md:text-center'>
                                     <button
+                                        onClick={addToCart}
                                         className='uppercase bg-primary text-white md:font-bold md:py-1 md:px-5 md:rounded-sm md:shadow-md'>Add
                                         to cart
                                     </button>
                                 </div>
                             </div>
                             <button
-                                className='transform rounded-sm relative origin-left duration-300 hover:scale-x-105 hover:text-secondary border border-transparent group hover:border-gray-200 md:flex md:items-center md:px-2 md:py-1'>
+                                onClick={toggleWish}
+                                className='transform rounded-sm relative origin-left duration-300 focus:outline-none hover:scale-x-105 hover:text-secondary border border-transparent group hover:border-gray-200 md:flex md:items-center md:px-2 md:py-1'>
                                 <FontAwesomeIcon className={inMyWishlist ? 'text-secondary' : ''} icon={faHeart}/>
                                 <div className='md:ml-2'>Add to wishlist</div>
                                 <span
@@ -175,7 +198,7 @@ const Product = ({product, reviews, relatedProducts}) => {
                         </li>
                         <li>
                             <a className='text-gray-400 relative inline-block md:px-4 md:py-2 md:text-lg md:font-semibold'
-                               href="">Reviews</a>
+                               href="">Reviews <span className='text-base'>({reviews.length})</span></a>
                         </li>
                         <li>
                             <a className='text-gray-400 relative inline-block md:px-4 md:py-2 md:text-lg md:font-semibold'

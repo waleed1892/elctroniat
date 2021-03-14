@@ -14,10 +14,11 @@ html, body {
 }
 
 .filterBox {
-  &:not(:first-child) > div{
+  &:not(:first-child) > div {
     max-height: 180px;
     overflow-y: auto;
   }
+
   &:not(:first-child) {
     @apply md:mt-6;
   }
@@ -40,9 +41,17 @@ html, body {
   background: url("./../public/static/images/hero.jpg");
 }
 
-#productNav ul li a::after {
-  content: '';
-  @apply border-b-2 border-primary transform origin-center duration-500 scale-x-0 absolute inset-x-0 bottom-0;
+#productNav ul li {
+  &:first-child {
+    a::after {
+      @apply scale-x-100;
+    }
+  }
+
+  a::after {
+    content: '';
+    @apply border-b-2 border-primary transform origin-center duration-500 scale-x-0 absolute inset-x-0 bottom-0;
+  }
 }
 
 #productNav ul li a:hover::after {
