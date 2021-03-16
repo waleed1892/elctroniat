@@ -52,7 +52,8 @@ export async function getServerSideProps(context) {
         return data
     }
     const category = await getCategory()
-    const products = await getProducts(category.id)
+    let products = await getProducts(category.id)
+    products = products.filter(product => product.purcha)
     return {
         props: {
             category,

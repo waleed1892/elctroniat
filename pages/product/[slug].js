@@ -25,9 +25,9 @@ const HtmlToReactParser = require('html-to-react').Parser;
 const publicIp = require('public-ip');
 
 const Product = ({product, reviews, relatedProducts}) => {
-    console.log(product)
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [ip, setIp] = useState(null)
+    const [quantity, setQuantity] = useState(1);
     let htmlToReactParser = new HtmlToReactParser();
     let shortDescription = htmlToReactParser.parse(product.short_description);
     let description = htmlToReactParser.parse(product.description)
@@ -49,17 +49,30 @@ const Product = ({product, reviews, relatedProducts}) => {
         const data = {
             action: 'rhwishlist',
             wishnonce: 'b885cf9d2b',
-            wish_count: 'remove',
+            wish_count: 'add',
             post_id: product.id
         }
-        await axios.post('https://elctroniat.com/wp-admin/admin-ajax.php', data)
+        await axios.post('https://elctroniat.com/wp-admin/admin-ajax.php', data,)
+    }
+
+    const inputHandler = (e) => {
+        const {value} = e.target;
+        if (value < 1) {
+            return;
+        }
+        setQuantity(value)
     }
 
     const addToCart = async () => {
         const data = {
-            product_id: product.id
+            id: product.id,
+            quantity: quantity
         }
-        await axios.post('https://elctroniat.com/?wc-ajax=add_to_cart', data)
+        await axios.post('http://elctroniat.com/wp-json/wc/store/cart/add-item', data, {
+            headers: {
+                "X-WC-Store-API-Nonce": "8056546845",
+            }
+        })
     }
 
     return (
@@ -163,7 +176,9 @@ const Product = ({product, reviews, relatedProducts}) => {
                             <div className='md:text-2xl md:mb-6'>AED {product.price}</div>
                             <div className='md:flex md:items-center md:mb-6'>
                                 <form className='md:w-2/12'>
-                                    <input className='appearance-none border-b w-full outline-none' type="number"/>
+                                    <input onChange={inputHandler}
+                                           value={quantity}
+                                           className='appearance-none border-b w-full outline-none' type="number"/>
                                 </form>
                                 <div className='md:w-10/12 md:text-center'>
                                     <button
@@ -252,7 +267,7 @@ export async function getServerSideProps({params}) {
         props: {
             product,
             reviews,
-            relatedProducts
+            relatedProducts,
         }
     }
 }
