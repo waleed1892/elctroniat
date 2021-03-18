@@ -1,6 +1,3 @@
-import Header from "../Header";
-import StickyNavbar from "../StickyNavbar";
-import Footer from "../Footer";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 

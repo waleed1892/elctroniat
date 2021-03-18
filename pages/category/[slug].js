@@ -2,12 +2,6 @@ import woocomerce from "../../woocomerce";
 import Header from "../../components/Header";
 import StickyNavbar from "../../components/StickyNavbar";
 import Footer from "../../components/Footer";
-import FilterBar from "../../components/shop/filterBar";
-import Loader from "../../components/Theme/Loader";
-import Link from "next/link";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHeart} from "@fortawesome/free-regular-svg-icons";
-import {faArrowDown, faSearchPlus} from "@fortawesome/free-solid-svg-icons";
 import Products from "../../components/products";
 
 const Category = ({category, products}) => {

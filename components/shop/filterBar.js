@@ -1,7 +1,6 @@
 import {useState} from "react";
 import {Range} from "rc-slider";
 import 'rc-slider/assets/index.css';
-import woocomerce from "../../woocomerce";
 
 const FilterBar = ({attributes, filterProducts}) => {
     const [minPrice, setMinPrice] = useState(0);

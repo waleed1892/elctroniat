@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect} from "react";
+import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 import Logo from './../public/static/images/logo.png'
 import debounce from "lodash.debounce";
