@@ -11,7 +11,7 @@ const ReviewForm = ({product}) => {
         cons: '',
         reviewer: '',
         reviewer_email: '',
-        rating: 4,
+        rating: 0,
         product_id: product.id
     })
 

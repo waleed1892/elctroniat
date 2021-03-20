@@ -20,6 +20,7 @@ const HtmlToReactParser = require('html-to-react').Parser;
 const publicIp = require('public-ip');
 
 const Product = ({product, reviews, relatedProducts}) => {
+    console.log(product)
     const [ip, setIp] = useState(null)
     const [quantity, setQuantity] = useState(1);
     let htmlToReactParser = new HtmlToReactParser();

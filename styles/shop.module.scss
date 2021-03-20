@@ -1,0 +1,9 @@
+.product {
+  @apply bg-white shadow-lg border border-gray-50 md:flex md:flex-col md:justify-between;
+  img {
+    @apply cursor-pointer duration-100;
+    &:hover {
+      @apply opacity-70;
+    }
+  }
+}

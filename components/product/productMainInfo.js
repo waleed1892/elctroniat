@@ -3,11 +3,24 @@ import {faQuestionCircle, faStar} from "@fortawesome/free-solid-svg-icons";
 import {faEye} from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
 
+const isString = require('lodash.isstring')
+
 const HtmlToReactParser = require('html-to-react').Parser;
 const ProductMainInfo = ({product, reviews}) => {
     const htmlToReactParser = new HtmlToReactParser();
     let shortDescription = htmlToReactParser.parse(product.short_description);
     const views = product.meta_data.find(item => item.key === 'rehub_views') || 0;
+    const advancedFields = []
+    product.meta_data.forEach(item => {
+        if (isString(item.value)) {
+            if (item.value.match('field_')) {
+                let temp = product.meta_data.find(customField => customField.key === item.key.slice(1))
+                if (temp && temp.value) {
+                    advancedFields.push(temp)
+                }
+            }
+        }
+    })
     return (
         <div>
             <h1 className='md:text-2xl md:font-bold md:mb-6'>{product.name}</h1>
@@ -55,6 +68,16 @@ const ProductMainInfo = ({product, reviews}) => {
                         </div>
                     )
                 })}
+                {
+                    advancedFields.map(item => {
+                        return (
+                            <div key={item.id} className='md:mb-2'>
+                                <label className='md:font-semibold capitalize' htmlFor="">{item.key.replace('_', ' ').toLowerCase()}: </label>
+                                <span>{item.value}</span>
+                            </div>
+                        )
+                    })
+                }
             </div>
             <button
                 className='uppercase bg-primary text-white md:font-bold md:py-1 md:px-5 md:rounded-sm md:shadow-md md:mb-6'>

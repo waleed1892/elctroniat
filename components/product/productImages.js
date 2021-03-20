@@ -11,14 +11,14 @@ const ProductImages = ({product}) => {
             <div className='md:w-2/12 md:self-start'>
                 <Swiper
                     direction='vertical'
-                    spaceBetween={15}
+                    spaceBetween={10}
                     onSwiper={setThumbsSwiper}
-                    slidesPerView={4}>
+                    slidesPerView={'auto'}>
                     {
                         product.images.map(image => {
                             return (
-                                <SwiperSlide>
-                                    <img className='border md:w-14 md:h-auto' src={image.src} alt=""/>
+                                <SwiperSlide className='h-auto p-1'>
+                                    <img className='border md:w-14 md:h-14 cursor-pointer' src={image.src} alt=""/>
                                 </SwiperSlide>
                             )
                         })
@@ -30,7 +30,7 @@ const ProductImages = ({product}) => {
                     {
                         product.images.map(image => {
                             return (
-                                <SwiperSlide><img src={image.src} alt=""/></SwiperSlide>
+                                <SwiperSlide><img className='md:w-3/5 md:h-auto mx-auto' src={image.src} alt=""/></SwiperSlide>
                             )
                         })
                     }

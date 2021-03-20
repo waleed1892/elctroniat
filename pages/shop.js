@@ -9,6 +9,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-regular-svg-icons";
 import {faArrowDown, faSearchPlus} from "@fortawesome/free-solid-svg-icons";
 import Loader from "../components/Theme/Loader";
+import productStyles from './../styles/shop.module.scss'
 
 
 const shop = ({products, totalProductsProp, totalPagesProp, attributes}) => {
@@ -95,15 +96,21 @@ const shop = ({products, totalProductsProp, totalPagesProp, attributes}) => {
                                 {
                                     productsArr.map(product =>
                                         <div key={product.id}
-                                             className='bg-white shadow-lg border border-gray-50 md:flex md:flex-col md:justify-between'>
+                                             className={productStyles.product}>
                                             {
                                                 editorChoice(product)
                                             }
                                             <div className='md:py-2 md:px-4'>
                                                 {
                                                     product.images.length > 0 &&
-                                                    <img loading={"lazy"} decoding={"async"} src={product.images[0].src}
-                                                         alt=""/>
+                                                    <Link href={`product/${product.slug}`}>
+                                                        <a>
+                                                            <img loading={"lazy"} decoding={"async"}
+                                                                 src={product.images[0].src}
+                                                                 alt=""/>
+                                                        </a>
+                                                    </Link>
+
                                                 }
                                                 <Link href={`product/${product.slug}`}>
                                                     <a className='md:font-bold md:text-xl md:mt-3 inline-block'>{product.name}</a>

@@ -1,5 +1,7 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+
 
 const RelatedProducts = ({relatedProducts}) => {
     return (
@@ -12,9 +14,16 @@ const RelatedProducts = ({relatedProducts}) => {
                     relatedProducts.map(product => {
                         return (
                             <div className='border md:p-3 md:flex'>
-                                <img className='md:w-24 md:h-auto' src={product.images[0].src} loading={"lazy"} decoding={"async"} alt=""/>
+                                <Link href={`/product/${product.slug}`}>
+                                    <a href="">
+                                        <img className='md:w-24 md:h-auto' src={product.images[0].src} loading={"lazy"}
+                                             decoding={"async"} alt=""/>
+                                    </a>
+                                </Link>
                                 <div className='md:ml-4'>
-                                    <h3 className='md:font-bold md:mb-2'>{product.name}</h3>
+                                    <Link href={`/product/${product.slug}`}>
+                                        <a className='md:font-bold md:mb-2 inline-block'>{product.name}</a>
+                                    </Link>
                                     <div className='text-primary md:text-sm'>AED{product.price}</div>
                                 </div>
                             </div>
