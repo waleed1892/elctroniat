@@ -68,16 +68,18 @@ const ProductMainInfo = ({product, reviews}) => {
                         </div>
                     )
                 })}
-                {
-                    advancedFields.map(item => {
-                        return (
-                            <div key={item.id} className='md:mb-2'>
-                                <label className='md:font-semibold capitalize' htmlFor="">{item.key.replace('_', ' ').toLowerCase()}: </label>
-                                <span>{item.value}</span>
-                            </div>
-                        )
-                    })
-                }
+                <div className='grid grid-cols-2'>
+                    {
+                        advancedFields.map(item => {
+                            return (
+                                <div key={item.id} className='border border-gray-200 p-2'>
+                                    <label className='md:font-semibold capitalize' htmlFor="">{item.key.replace('_', ' ').toLowerCase()}: </label>
+                                    <span>{item.value}</span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
             <button
                 className='uppercase bg-primary text-white md:font-bold md:py-1 md:px-5 md:rounded-sm md:shadow-md md:mb-6'>
