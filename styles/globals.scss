@@ -37,8 +37,10 @@ html, body {
   }
 }
 
-#heroBanner {
-  background: url("./../public/static/images/hero.jpg");
+#heroSlider {
+  .swiper-slide {
+    background: url("./../public/static/images/hero.jpg");
+  }
 }
 
 #productNav ul li {

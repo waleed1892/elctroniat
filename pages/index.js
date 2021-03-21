@@ -7,6 +7,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCommentDots, faHeart} from "@fortawesome/free-regular-svg-icons";
 import {faSearchPlus} from "@fortawesome/free-solid-svg-icons";
 import Brand from "./../public/static/images/brand.png";
+import shirt from './../public/static/images/shirt.png'
+import product from './../public/static/images/product.png'
+import {Swiper, SwiperSlide} from "swiper/react";
 
 
 const Home = () => {
@@ -15,6 +18,100 @@ const Home = () => {
             <Header></Header>
             <StickyNavbar></StickyNavbar>
             <HeroBanner></HeroBanner>
+            <section className='md:mx-24 md:py-10'>
+                <div className='grid grid-cols-12 gap-x-2'>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                    <div className='border rounded-full p-2'>
+                        <img className='max-w-full h-auto' src={shirt} decoding={"async"} loading={"lazy"} alt=""/>
+                    </div>
+                </div>
+            </section>
+            <section className='md:mx-24 md:py-10'>
+                <h2 className='font-semibold text-lg mb-8'>Recommended for you</h2>
+                <Swiper slidesPerView={7}>
+                    <SwiperSlide>
+                        <div>
+                            <img className='w-3/4 mx-auto h-auto mb-8' src={product} alt=""/>
+                            <div className='text-sm mb-4'>product title here</div>
+                            <div className='font-bold text-lg'>AED 100</div>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div>
+                            <img className='w-3/4 mx-auto h-auto mb-8' src={product} alt=""/>
+                            <div className='text-sm mb-4'>product title here</div>
+                            <div className='font-bold text-lg'>AED 100</div>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div>
+                            <img className='w-3/4 mx-auto h-auto mb-8' src={product} alt=""/>
+                            <div className='text-sm mb-4'>product title here</div>
+                            <div className='font-bold text-lg'>AED 100</div>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div>
+                            <img className='w-3/4 mx-auto h-auto mb-8' src={product} alt=""/>
+                            <div className='text-sm mb-4'>product title here</div>
+                            <div className='font-bold text-lg'>AED 100</div>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div>
+                            <img className='w-3/4 mx-auto h-auto mb-8' src={product} alt=""/>
+                            <div className='text-sm mb-4'>product title here</div>
+                            <div className='font-bold text-lg'>AED 100</div>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div>
+                            <img className='w-3/4 mx-auto h-auto mb-8' src={product} alt=""/>
+                            <div className='text-sm mb-4'>product title here</div>
+                            <div className='font-bold text-lg'>AED 100</div>
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <div>
+                            <img className='w-3/4 mx-auto h-auto mb-8' src={product} alt=""/>
+                            <div className='text-sm mb-4'>product title here</div>
+                            <div className='font-bold text-lg'>AED 100</div>
+                        </div>
+                    </SwiperSlide>
+                </Swiper>
+            </section>
             <section className='md:mx-24 md:py-10'>
                 <hr className='bg-gray-300 md:mb-12'/>
                 <div>
@@ -38,7 +135,9 @@ const Home = () => {
                                 <img src={Brand} alt=""/>
                                 <div className='md:text-center'>
                                     <button
-                                        className='bg-primary-light text-white md:text-sm md:mt-3 md:uppercase md:font-bold md:px-6 md:py-3 md:rounded-full transition-all duration-300 transform md:hover:text-primary-light md:hover:bg-white md:hover:scale-110'>check now</button>
+                                        className='bg-primary-light text-white md:text-sm md:mt-3 md:uppercase md:font-bold md:px-6 md:py-3 md:rounded-full transition-all duration-300 transform md:hover:text-primary-light md:hover:bg-white md:hover:scale-110'>check
+                                        now
+                                    </button>
                                     <div className='md:text-sm md:mt-3'>Hurry up limited offers</div>
                                 </div>
                             </div>
