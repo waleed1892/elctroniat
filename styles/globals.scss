@@ -126,13 +126,3 @@ html, body {
   }
 
 }
-
-#advancedFields {
-  //div:nth-child(4n) {
-  //  @apply bg-gray-200;
-  //}
-
-  div:nth-child(3n){
-    @apply bg-gray-200;
-  }
-}

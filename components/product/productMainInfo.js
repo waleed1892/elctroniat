@@ -2,6 +2,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faQuestionCircle, faStar} from "@fortawesome/free-solid-svg-icons";
 import {faEye} from "@fortawesome/free-regular-svg-icons";
 import Link from "next/link";
+import chunk from "lodash.chunk";
 
 const isString = require('lodash.isstring')
 
@@ -72,15 +73,16 @@ const ProductMainInfo = ({product, reviews}) => {
                     <div className='bg-primary p-3 text-white font-semibold text-lg'>Additional Details</div>
                     <div id='advancedFields' className='grid grid-cols-2'>
                         {
-                            advancedFields.map(item => {
+                            chunk(advancedFields, 2).map((parent, index) => parent.map(item => {
                                 return (
-                                    <div key={item.id} className='border border-gray-200 p-2'>
+                                    <div key={item.id}
+                                         className={`border  p-2 ${index % 2 === 0 ? 'bg-gray-200 border-gray-300' : 'border-gray-200'}`}>
                                         <label className='md:font-semibold capitalize'
                                                htmlFor="">{item.key.replace('_', ' ').toLowerCase()}: </label>
                                         <span>{item.value}</span>
                                     </div>
                                 )
-                            })
+                            }))
                         }
                     </div>
                 </div>

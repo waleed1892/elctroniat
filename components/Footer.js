@@ -48,39 +48,51 @@ const Footer = () => {
                     <ul className='flex flex-col'>
                         <li><Link href='/'><a
                             className='text-sm md:inline-block md:py-1 hover:text-primary'>Home</a></Link></li>
-                        <li><Link href='/'><a
+                        <li><Link href='/checkout'><a
                             className='text-sm md:inline-block md:py-1 hover:text-primary'>Checkout</a></Link></li>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>My
+                        <li><Link href='/account'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>My
                             Account</a></Link></li>
-                        <li><Link href='/'><a
+                        <li><Link href='/shop'><a
                             className='text-sm md:inline-block md:py-1 hover:text-primary'>Shop</a></Link></li>
-                        <li><Link href='/'><a
+                        <li><Link href='/wishlist'><a
                             className='text-sm md:inline-block md:py-1 hover:text-primary'>Wishlist</a></Link></li>
                     </ul>
                     <ul className='flex flex-col'>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>Best
+                        <li><Link href='/category/best-sellers'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Best
                             Sellers</a></Link></li>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>Today's
+                        <li><Link href='/category/todays-deals'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Today's
                             Deals</a></Link></li>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>Mobile
+                        <li><Link href='/categroy/mobile-phones'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Mobile
                             Phones</a></Link></li>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>Laptop &
+                        <li><Link href='/category/laptop-accessories'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Laptop &
                             Accessories</a></Link></li>
-                        <li><Link href='/'><a
+                        <li><Link href='/category/electronics'><a
                             className='text-sm md:inline-block md:py-1 hover:text-primary'>Electronics</a></Link></li>
                     </ul>
                     <ul className='flex flex-col'>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>Smart
+                        <li><Link href='/category/smart-phones'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Smart
                             Phones</a></Link></li>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>Smart
+                        <li><Link href='/category/smart-watches'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Smart
                             Watches</a></Link></li>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>Phone
+                        <li><Link href='/category/phone-accessories'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Phone
                             Accessories</a></Link>
                         </li>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>Computer &
+                        <li><Link href='/category/computers-tablets-and-it-accessories'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Computer &
                             IT Accessories</a></Link>
                         </li>
-                        <li><Link href='/'><a className='text-sm md:inline-block md:py-1 hover:text-primary'>Camera &
+                        <li><Link href='/category/audio-television'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Audio & Television</a></Link>
+                        </li>
+                        <li><Link href='/category/camera-photo'><a
+                            className='text-sm md:inline-block md:py-1 hover:text-primary'>Camera &
                             Photo</a></Link></li>
                     </ul>
                 </div>
