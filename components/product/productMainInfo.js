@@ -68,17 +68,21 @@ const ProductMainInfo = ({product, reviews}) => {
                         </div>
                     )
                 })}
-                <div className='grid grid-cols-2'>
-                    {
-                        advancedFields.map(item => {
-                            return (
-                                <div key={item.id} className='border border-gray-200 p-2'>
-                                    <label className='md:font-semibold capitalize' htmlFor="">{item.key.replace('_', ' ').toLowerCase()}: </label>
-                                    <span>{item.value}</span>
-                                </div>
-                            )
-                        })
-                    }
+                <div className='mt-4'>
+                    <div className='bg-primary p-3 text-white font-semibold text-lg'>Additional Details</div>
+                    <div id='advancedFields' className='grid grid-cols-2'>
+                        {
+                            advancedFields.map(item => {
+                                return (
+                                    <div key={item.id} className='border border-gray-200 p-2'>
+                                        <label className='md:font-semibold capitalize'
+                                               htmlFor="">{item.key.replace('_', ' ').toLowerCase()}: </label>
+                                        <span>{item.value}</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             </div>
             <button
